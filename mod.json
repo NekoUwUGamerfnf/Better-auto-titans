@@ -1,0 +1,17 @@
+{
+	"Name" : "auto titan",
+	"Description" : "better auto titan",
+	"Version": "8008",
+	"LoadPriority": 0,
+	"RequiredOnClient": false,
+
+	"Scripts": [
+		{
+			"Path": "auto_init.nut",
+			"RunOn": "MP",
+                        "ServerCallback": {
+                        "After": "auto_init"
+                        }
+		}
+	]
+}
