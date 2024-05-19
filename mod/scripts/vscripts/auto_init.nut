@@ -3,9 +3,10 @@ global function auto_init
 
 void function auto_init() {
 #if SERVER
-	AddSpawnCallback("npc_titan", Auto )
+	AddSpawnCallback( "npc_titan", Auto )
 #endif
 }
+
 #if SERVER
 void function Auto( entity titan )
 {
@@ -13,33 +14,67 @@ void function Auto( entity titan )
 	//entity weapon = titan.GetOffhandWeapon( OFFHAND_EQUIPMENT )
 	if ( weapons[0] != null)
         { //titan.TakeWeaponNow( weapon.GetWeaponClassName() )
-          //titan.TakeOffhandWeapon(OFFHAND_ANTIRODEO)
+          //titan.TakeOffhandWeapon( OFFHAND_ANTIRODEO )
         }
-
 	string attackerType = GetTitanCharacterName( titan )
 	switch ( attackerType )
 	    {
 		case "ronin": titan.SetAISettings( "npc_titan_stryder_leadwall" )
                               titan.SetBehaviorSelector( "behavior_titan_shotgun" )
+                              entity soul = titan.GetTitanSoul()
+                              if ( IsValid( soul ) )
+                              {
+ 		              GivePassive( soul, ePassives.PAS_ENHANCED_TITAN_AI )
+                              }
                         break;
 		case "scorch": titan.SetAISettings( "npc_titan_ogre_meteor" )
                                titan.SetBehaviorSelector( "behavior_titan_ogre_meteor" )
+                              entity soul = titan.GetTitanSoul()
+                              if ( IsValid( soul ) )
+                              {
+ 		              GivePassive( soul, ePassives.PAS_ENHANCED_TITAN_AI )
+                              }
                         break;
 		case "legion": titan.SetAISettings( "npc_titan_ogre_minigun" )
                                titan.SetBehaviorSelector( "behavior_titan_ogre_minigun" )
+                              entity soul = titan.GetTitanSoul()
+                              if ( IsValid( soul ) )
+                              {
+ 		              GivePassive( soul, ePassives.PAS_ENHANCED_TITAN_AI )
+                              }
 			break;
 		case "ion": titan.SetAISettings( "npc_titan_atlas_stickybomb" )
                             titan.SetBehaviorSelector( "behavior_titan_long_range" )
+                              entity soul = titan.GetTitanSoul()
+                              if ( IsValid( soul ) )
+                              {
+ 		              GivePassive( soul, ePassives.PAS_ENHANCED_TITAN_AI )
+                              }
                         break;
 		case "tone": titan.SetAISettings( "npc_titan_atlas_tracker" )
                              titan.SetBehaviorSelector( "behavior_titan_long_range" )
+                              entity soul = titan.GetTitanSoul()
+                              if ( IsValid( soul ) )
+                              {
+ 		              GivePassive( soul, ePassives.PAS_ENHANCED_TITAN_AI )
+                              }
                         break;
 		case "vanguard": titan.SetAISettings( "npc_titan_atlas_vanguard" )
                                  titan.SetBehaviorSelector( "behavior_titan_long_range" )
+                              entity soul = titan.GetTitanSoul()
+                              if ( IsValid( soul ) )
+                              {
+ 		              GivePassive( soul, ePassives.PAS_ENHANCED_TITAN_AI )
+                              }
                         break;
                 case "northstar": titan.SetAISettings( "npc_titan_stryder_sniper" )
-                                  titan.SetBehaviorSelector( "behavior_titan_sniper" )   
+                                  titan.SetBehaviorSelector( "behavior_titan_sniper" )  
+                              entity soul = titan.GetTitanSoul()
+                              if ( IsValid( soul ) )
+                              {
+ 		              GivePassive( soul, ePassives.PAS_ENHANCED_TITAN_AI )
+                              }
                         break;
-	    }
+        }
 }
 #endif

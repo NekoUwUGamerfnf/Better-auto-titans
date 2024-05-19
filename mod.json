@@ -8,10 +8,10 @@
 	"Scripts": [
 		{
 			"Path": "auto_init.nut",
-			"RunOn": "MP",
+			"RunOn": "SERVER && MP",
                         "ServerCallback": {
                         "After": "auto_init"
-                        }
+			}
 		}
 	]
 }
