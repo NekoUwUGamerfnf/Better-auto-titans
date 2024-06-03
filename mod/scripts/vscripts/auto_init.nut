@@ -5,6 +5,7 @@ void function auto_init() {
 #if SERVER
 	AddSpawnCallback( "npc_titan", Auto )
 	AddCallback_OnTitanBecomesPilot( OnTitanBecomesPilot )
+        AddCallback_OnPilotBecomesTitan( onpilot )
 #endif
 }
 
@@ -12,6 +13,28 @@ void function OnTitanBecomesPilot( entity player, entity titan )
 {
         if( IsValid(titan))
 	ai( titan )
+}
+
+void function OnPilotBecomesTitan( entity player, entity titan )
+{
+if( IsValid(player))
+player.TakeWeaponNow("mp_titanweapon_flightcore_rockets")
+player.TakeWeaponNow("mp_titanweapon_sniper")
+player.GiveWeapon("mp_titanweapon_sniper")
+entity soul = player.GetTitanSoul()
+if( SoulHasPassive( soul, ePassives.PAS_NORTHSTAR_WEAPON ) )
+{
+player.GetMainWeapons()[0].AddMod( "power_shot" )
+}
+if( SoulHasPassive( soul, ePassives.PAS_NORTHSTAR_OPTICS ) )
+{
+player.GetMainWeapons()[0].AddMod( "pas_northstar_optics" )
+}
+if ( player.GetOffhandWeapons()[OFFHAND_SPECIAL].HasMod("pas_northstar_trap") )
+player.GetMainWeapons()[0].AddMod( "quick_shot" )
+player.GetMainWeapons()[0].AddMod( "pas_northstar_weapon" )
+player.GetMainWeapons()[0].AddMod( "fd_upgrade_charge" )
+player.GetMainWeapons()[0].AddMod( "fd_upgrade_crit" )
 }
 
 void function scorcha( entity titan )
@@ -201,6 +224,18 @@ titan.SetAISettings( "npc_titan_atlas_stickybomb" )
                                   titan.SetBehaviorSelector( "behavior_titan_sniper" )
                                   thread northstar( titan )
                                   }  
+                             break;
+              }
+}
+#endif
+
+#if SERVER
+void function onpilot( entity player, entity titan )
+{
+	string attackerType = GetTitanCharacterName( titan )
+	switch ( attackerType )
+	    {
+                case "northstar": thread OnPilotBecomesTitan ( player, titan )
                              break;
               }
 }
