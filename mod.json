@@ -1,7 +1,7 @@
 {
 	"Name" : "auto titan",
 	"Description" : "better auto titan",
-	"Version": "1.0.3",
+	"Version": "1.0.4",
 	"LoadPriority": 2,
 	"RequiredOnClient": false,
 
