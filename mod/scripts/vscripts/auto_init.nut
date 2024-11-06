@@ -75,6 +75,7 @@ titan.SetBehaviorSelector( "behavior_titan_long_range" )
 void function vanguarda( entity titan )
 {
 if( IsValid(titan))
+if( titan.GetModelName() != $"models/titans/buddy/titan_buddy.mdl")
 titan.SetAISettings( "npc_titan_atlas_vanguard" )
 titan.SetBehaviorSelector( "behavior_titan_long_range" )}
 
@@ -120,6 +121,7 @@ void function vanguard( entity titan )
 	while( true )
 	{
                 if( IsValid(titan))
+                if( titan.GetModelName() != $"models/titans/buddy/titan_buddy.mdl")
 		vanguarda( titan )
 		WaitFrame()
 	}
