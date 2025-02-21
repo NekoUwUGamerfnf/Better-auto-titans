@@ -55,10 +55,15 @@ player.TakeWeaponNow("mp_titanweapon_flightcore_rockets")
 player.TakeWeaponNow("mp_titanweapon_sniper")
 player.GiveWeapon("mp_titanweapon_sniper")
 entity soul = player.GetTitanSoul()
+if ( soul != null )
 if( SoulHasPassive( soul, ePassives.PAS_NORTHSTAR_WEAPON ) )
+{
 player.GetMainWeapons()[0].AddMod( "power_shot" )
+}
 if( SoulHasPassive( soul, ePassives.PAS_NORTHSTAR_OPTICS ) )
+{
 player.GetMainWeapons()[0].AddMod( "pas_northstar_optics" )
+}
 if( GetCurrentPlaylistVarInt( "aegis_upgrades", 0 ) == 1 )
 {
 player.GetMainWeapons()[0].AddMod( "quick_shot" )
