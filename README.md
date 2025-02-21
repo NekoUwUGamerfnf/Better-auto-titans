@@ -1,5 +1,3 @@
 # Better-auto-titans
 
-it is better titans for real for real
-
-it can now be used in more modes like bounty hunt and frontier defense
+Use `very_enhanced_auto_titans` To Use Elite Titans AiSet/AiBehavior For Titans With Assault Chip

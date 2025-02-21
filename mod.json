@@ -1,16 +1,19 @@
 {
-	"Name" : "auto titan",
-	"Description" : "better auto titan",
-	"Version": "1.0.6",
+	"Name": "Neko's Better Auto Titans",
+	"Description": "Give Auto Titans The Ability To Use Cores",
+	"Version": "1.0.7",
 	"LoadPriority": 2,
 	"RequiredOnClient": false,
 
 	"Scripts": [
 		{
 			"Path": "auto_init.nut",
-			"RunOn": "SERVER && MP",
-                        "ServerCallback": {
-                        "After": "auto_init"
+			"RunOn": "MP",
+			"ClientCallback": {
+				"After": "auto_init"
+			},
+			"ServerCallback": {
+				"After": "auto_init"
 			}
 		}
 	]
