@@ -64,13 +64,11 @@ if( SoulHasPassive( soul, ePassives.PAS_NORTHSTAR_OPTICS ) )
 {
 player.GetMainWeapons()[0].AddMod( "pas_northstar_optics" )
 }
-if( GetCurrentPlaylistVarInt( "aegis_upgrades", 0 ) == 1 )
-{
+if ( player.GetOffhandWeapons()[OFFHAND_SPECIAL].HasMod("pas_northstar_trap") )
 player.GetMainWeapons()[0].AddMod( "quick_shot" )
 player.GetMainWeapons()[0].AddMod( "pas_northstar_weapon" )
 player.GetMainWeapons()[0].AddMod( "fd_upgrade_charge" )
 player.GetMainWeapons()[0].AddMod( "fd_upgrade_crit" )
-}
 }
 
 void function scorcha( entity titan )
