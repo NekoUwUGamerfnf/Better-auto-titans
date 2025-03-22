@@ -5,39 +5,33 @@ void function auto_init() {
 #if SERVER
 	AddSpawnCallback( "npc_titan", Auto )
 	AddCallback_OnTitanBecomesPilot( OnTitanBecomesPilot )
-        AddCallback_OnPilotBecomesTitan( onpilot )
+    AddCallback_OnPilotBecomesTitan( onpilot )
 #endif
 }
 
 #if SERVER
 void function ronincore( entity titan )
 {
-    entity meleeWeapon = titan.GetMeleeWeapon()
-	if( meleeWeapon.HasMod( "super_charged" ) )
-    {
-    titan.DisableBehavior( "Assault" )
-    titan.DisableBehavior( "Follow" )
-    titan.SetAISettings( "npc_titan_stryder_leadwall_shift_core" )
-    titan.SetBehaviorSelector( "behavior_titan_melee_core" )
-    titan.WaitSignal( "CoreEnd" )
-    titan.EnableBehavior( "Assault" )
-    titan.EnableBehavior( "Follow" )
-    ronina( titan )
-    }
+if( IsValid( titan ) )
+{
+titan.DisableBehavior( "Follow" )
+titan.SetAISettings( "npc_titan_stryder_leadwall_shift_core" )
+titan.SetBehaviorSelector( "behavior_titan_melee_core" )
+}
 }
 
 void function OnTitanBecomesPilot( entity player, entity titan )
 {
-        if( IsValid(titan))
+    if( IsValid( titan ) )
 	ai( titan )
 }
 
 void function OnPilotBecomesTitan( entity player, entity titan )
 {
- if( IsValid(player))
+ if( IsValid( player ) )
  {
 array <entity> weapons = player.GetMainWeapons()
-if (weapons[0].GetWeaponClassName() != "mp_titanweapon_flightcore_rockets" )
+if ( weapons[0].GetWeaponClassName() != "mp_titanweapon_flightcore_rockets" )
 return
 if ( !TitanCoreInUse( player ) )
 return
@@ -61,73 +55,81 @@ player.GetMainWeapons()[0].AddMod( "fd_upgrade_crit" )
  }
 }
 
-void function core( entity titan )
-{
-while( true )
-   {
-    titan.WaitSignal( "CoreBegin" )
-    if( IsValid(titan))
-    {
-    ronincore( titan )
-    }
-   }
-}
-
 void function scorcha( entity titan )
 {
-if( IsValid(titan))
+if( IsValid( titan ) )
+{
 titan.SetAISettings( "npc_titan_ogre_meteor" )
 titan.SetBehaviorSelector( "behavior_titan_ogre_meteor" )
+}
 }
 
 void function ronina( entity titan )
 {
-if( IsValid(titan))
+if( IsValid( titan ) )
+{
+titan.EnableBehavior( "Follow" )
 titan.SetAISettings( "npc_titan_stryder_leadwall" )
 titan.SetBehaviorSelector( "behavior_titan_shotgun" )
+}
 }
 
 void function northstara( entity titan )
 {
-if( IsValid(titan))
+if( IsValid( titan ) )
+{
 titan.SetAISettings( "npc_titan_stryder_sniper" )
 titan.SetBehaviorSelector( "behavior_titan_sniper" ) 
+}
 }
 
 void function iona( entity titan )
 {
-if( IsValid(titan))
+if( IsValid( titan ) )
+{
 titan.SetAISettings( "npc_titan_atlas_stickybomb" )
 titan.SetBehaviorSelector( "behavior_titan_long_range" )
+}
 }
 
 void function tonea( entity titan )
 {
-if( IsValid(titan))
+if( IsValid( titan ) )
+{
 titan.SetAISettings( "npc_titan_atlas_tracker" )
 titan.SetBehaviorSelector( "behavior_titan_long_range" )
+}
 }
 
 void function vanguarda( entity titan )
 {
-if( IsValid(titan))
+if( IsValid( titan ) )
+{
 if( titan.GetModelName() != $"models/titans/buddy/titan_buddy.mdl")
+{
 titan.SetAISettings( "npc_titan_atlas_vanguard" )
-titan.SetBehaviorSelector( "behavior_titan_long_range" )}
+titan.SetBehaviorSelector( "behavior_titan_long_range" )
+}
+}
+}
 
 void function legiona( entity titan )
 {
-if( IsValid(titan))
+if( IsValid( titan ) )
+{
 titan.SetAISettings( "npc_titan_ogre_minigun" )
 titan.SetBehaviorSelector( "behavior_titan_ogre_minigun" )
+}
 }
 
 void function tone( entity titan )
 {
 	while( true )
 	{
-                if( IsValid(titan))
+        if( IsValid( titan ) )
 		tonea( titan )
+        if( !IsValid( titan ) )
+        return
 		titan.WaitSignal( "ChangedTitanMode" )
 	}
 }
@@ -136,8 +138,10 @@ void function northstar( entity titan )
 {
 	while( true )
 	{
-                if( IsValid(titan))
+        if( IsValid( titan ) )
 		northstara( titan )
+        if( !IsValid( titan ) )
+        return
 		titan.WaitSignal( "ChangedTitanMode" )
 	}
 }
@@ -146,8 +150,10 @@ void function scorch( entity titan )
 {
 	while( true )
 	{
-                if( IsValid(titan))
+        if( IsValid( titan ) )
 		scorcha( titan )
+        if( !IsValid( titan ) )
+        return
 		titan.WaitSignal( "ChangedTitanMode" )
 	}
 }
@@ -156,9 +162,13 @@ void function vanguard( entity titan )
 {
 	while( true )
 	{
-                if( IsValid(titan))
-                if( titan.GetModelName() != $"models/titans/buddy/titan_buddy.mdl")
+        if( IsValid( titan ) )
+        {
+        if( titan.GetModelName() != $"models/titans/buddy/titan_buddy.mdl")
 		vanguarda( titan )
+        }
+        if( !IsValid( titan ) )
+        return
 		titan.WaitSignal( "ChangedTitanMode" )
 	}
 }
@@ -168,8 +178,10 @@ void function ion( entity titan )
 {
 	while( true )
 	{
-                if( IsValid(titan))
+        if( IsValid( titan ) )
 		iona( titan )
+        if( !IsValid( titan ) )
+        return
 		titan.WaitSignal( "ChangedTitanMode" )
 	}
 }
@@ -178,20 +190,31 @@ void function legion( entity titan )
 {
 	while( true )
 	{
-                if( IsValid(titan))
+        if( IsValid( titan ) )
 		legiona( titan )
+        if( !IsValid( titan ) )
+        return
 		titan.WaitSignal( "ChangedTitanMode" )
 	}
 }
 
 void function ronin( entity titan )
 {
+WaitFrame()
 	while( true )
 	{
-        if( IsValid(titan))
+        if( IsValid( titan ) )
+        {
+        if( titan.IsPlayer() || !titan.IsTitan() )
+        return
+        if( !TitanCoreInUse( titan ) )
 		ronina( titan )
-        thread ronincore( titan )
-		titan.WaitSignal( "ChangedTitanMode" )
+        if( TitanCoreInUse( titan ) )
+        ronincore( titan )
+		WaitFrame()
+        }
+        if( !IsValid( titan ) )
+        return
 	}
 }
 
@@ -200,12 +223,14 @@ void function ronin( entity titan )
 #if SERVER
 void function Auto( entity titan )
 {
+if( IsValid( titan ) )
+{
 	string attackerType = GetTitanCharacterName( titan )
 	switch ( attackerType )
 	    {
 		case "ronin":  entity soul = titan.GetTitanSoul()
                               entity player = GetPetTitanOwner( titan )
-                              if ( IsValid( player ))
+                              if ( IsValid( player ) )
                               {
                               titan.SetAISettings( "npc_titan_stryder_leadwall" )
                               titan.SetBehaviorSelector( "behavior_titan_shotgun" )
@@ -214,7 +239,7 @@ void function Auto( entity titan )
                         break;
 		case "scorch":  entity soul = titan.GetTitanSoul()
                               entity player = GetPetTitanOwner( titan )
-                              if ( IsValid( player )) 
+                              if ( IsValid( player ) ) 
                               {
 titan.SetAISettings( "npc_titan_ogre_meteor" )
                                titan.SetBehaviorSelector( "behavior_titan_ogre_meteor" )
@@ -223,7 +248,7 @@ titan.SetAISettings( "npc_titan_ogre_meteor" )
                         break;
 		case "legion":  entity soul = titan.GetTitanSoul()
                               entity player = GetPetTitanOwner( titan )
-                              if ( IsValid( player ))
+                              if ( IsValid( player ) )
                               {
  titan.SetAISettings( "npc_titan_ogre_minigun" )
                                titan.SetBehaviorSelector( "behavior_titan_ogre_minigun" )
@@ -232,7 +257,7 @@ titan.SetAISettings( "npc_titan_ogre_meteor" )
 			break;
 		case "ion": entity soul = titan.GetTitanSoul()
                               entity player = GetPetTitanOwner( titan )
-                              if ( IsValid( player ))  
+                              if ( IsValid( player ) )  
                               {
 titan.SetAISettings( "npc_titan_atlas_stickybomb" )
                             titan.SetBehaviorSelector( "behavior_titan_long_range" )
@@ -241,7 +266,7 @@ titan.SetAISettings( "npc_titan_atlas_stickybomb" )
                         break;
 		case "tone": entity soul = titan.GetTitanSoul()
                               entity player = GetPetTitanOwner( titan )
-                              if ( IsValid( player ))
+                              if ( IsValid( player ) )
                               {
                               titan.SetAISettings( "npc_titan_atlas_tracker" )
                              titan.SetBehaviorSelector( "behavior_titan_long_range" )
@@ -250,7 +275,7 @@ titan.SetAISettings( "npc_titan_atlas_stickybomb" )
                         break;
 		case "vanguard": entity soul = titan.GetTitanSoul()
                               entity player = GetPetTitanOwner( titan )
-                              if ( IsValid( player ))
+                              if ( IsValid( player ) )
                               {
  titan.SetAISettings( "npc_titan_atlas_vanguard" )
                                  titan.SetBehaviorSelector( "behavior_titan_long_range" )
@@ -259,7 +284,7 @@ titan.SetAISettings( "npc_titan_atlas_stickybomb" )
                         break;
                 case "northstar": entity soul = titan.GetTitanSoul()
                               entity player = GetPetTitanOwner( titan )
-                              if ( IsValid( player ))
+                              if ( IsValid( player ) )
                               {
                                titan.SetAISettings( "npc_titan_stryder_sniper" )
                                   titan.SetBehaviorSelector( "behavior_titan_sniper" )
@@ -267,11 +292,15 @@ titan.SetAISettings( "npc_titan_atlas_stickybomb" )
                                   }  
                              break;
               }
+titan.SetCapabilityFlag( bits_CAP_SYNCED_MELEE_ATTACK, false )
+}
 }
 #endif
 
 #if SERVER
 void function onpilot( entity player, entity titan )
+{
+if( IsValid( titan ) )
 {
 	string attackerType = GetTitanCharacterName( titan )
 	switch ( attackerType )
@@ -280,10 +309,13 @@ void function onpilot( entity player, entity titan )
                              break;
               }
 }
+}
 #endif
 
 #if SERVER
 void function ai( entity titan )
+{
+if( IsValid( titan ) )
 {
 	string attackerType = GetTitanCharacterName( titan )
 	switch ( attackerType )
@@ -317,5 +349,7 @@ void function ai( entity titan )
                                   thread northstar( titan )  
                         break;
         }
+titan.SetCapabilityFlag( bits_CAP_SYNCED_MELEE_ATTACK, false )
+}
 }
 #endif
