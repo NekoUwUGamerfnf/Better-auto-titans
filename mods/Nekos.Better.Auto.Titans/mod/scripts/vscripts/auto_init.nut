@@ -37,10 +37,13 @@ foreach( entity weapon in weapons )
   if ( weapon.GetWeaponClassName() == "mp_titanweapon_flightcore_rockets" )
   hasflightcorerockets = true
   }
+if( hasflightcorerockets == false )
+return
 if ( !TitanCoreInUse( player ) )
 return
 TakeWeaponsForArray( player, player.GetMainWeapons() )
-player.GiveWeapon("mp_titanweapon_sniper")
+player.GiveWeapon( "mp_titanweapon_sniper" )
+array <entity> newweapons = player.GetMainWeapons()
 entity soul = player.GetTitanSoul()
 if ( soul != null )
 {
