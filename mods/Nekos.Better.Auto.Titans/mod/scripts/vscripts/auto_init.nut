@@ -43,7 +43,6 @@ if ( !TitanCoreInUse( player ) )
 return
 TakeWeaponsForArray( player, player.GetMainWeapons() )
 player.GiveWeapon( "mp_titanweapon_sniper" )
-array <entity> newweapons = player.GetMainWeapons()
 entity soul = player.GetTitanSoul()
 if ( soul != null )
 {
