@@ -1,7 +1,7 @@
 {
 	"Name": "Neko's Better Auto Titans",
 	"Description": "Give Auto Titans The Ability To Use Cores",
-	"Version": "1.1.0",
+	"Version": "1.1.1",
 	"LoadPriority": 2,
 	"RequiredOnClient": false,
 

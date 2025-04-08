@@ -31,8 +31,12 @@ void function OnPilotBecomesTitan( entity player, entity titan )
  if( IsValid( player ) )
  {
 array <entity> weapons = player.GetMainWeapons()
-if ( weapons[0].GetWeaponClassName() != "mp_titanweapon_flightcore_rockets" )
-return
+bool hasflightcorerockets = false
+foreach( entity weapon in weapons )
+  {
+  if ( weapon.GetWeaponClassName() == "mp_titanweapon_flightcore_rockets" )
+  hasflightcorerockets = true
+  }
 if ( !TitanCoreInUse( player ) )
 return
 TakeWeaponsForArray( player, player.GetMainWeapons() )
