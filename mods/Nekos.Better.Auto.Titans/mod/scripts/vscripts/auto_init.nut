@@ -30,9 +30,8 @@ void function OnPilotBecomesTitan( entity player, entity titan )
 {
  if( IsValid( player ) )
  {
-array <entity> weapons = player.GetMainWeapons()
-bool hasflightcorerockets = false
-foreach( entity weapon in weapons )
+ bool hasflightcorerockets = false
+  foreach( entity weapon in player.GetMainWeapons() )
   {
   if ( weapon.GetWeaponClassName() == "mp_titanweapon_flightcore_rockets" )
   hasflightcorerockets = true
@@ -43,20 +42,24 @@ if ( !TitanCoreInUse( player ) )
 return
 TakeWeaponsForArray( player, player.GetMainWeapons() )
 player.GiveWeapon( "mp_titanweapon_sniper" )
+entity sniper
+  foreach( entity weapon in player.GetMainWeapons() )
+  {
+  if( !IsValid( sniper ) && weapon.GetWeaponClassName() == "mp_titanweapon_sniper" )
+  sniper = weapon
+  }
 entity soul = player.GetTitanSoul()
-if ( soul != null )
+if ( soul != null && IsValid( sniper ) )
 {
 if( SoulHasPassive( soul, ePassives.PAS_NORTHSTAR_WEAPON ) )
-player.GetMainWeapons()[0].AddMod( "power_shot" )
+sniper.AddMod( "power_shot" )
 if( SoulHasPassive( soul, ePassives.PAS_NORTHSTAR_OPTICS ) )
-player.GetMainWeapons()[0].AddMod( "pas_northstar_optics" )
-if(GetCurrentPlaylistVarInt("aegis_upgrades", 0) == 1)
-{
-player.GetMainWeapons()[0].AddMod( "quick_shot" )
-player.GetMainWeapons()[0].AddMod( "pas_northstar_weapon" )
-player.GetMainWeapons()[0].AddMod( "fd_upgrade_charge" )
-player.GetMainWeapons()[0].AddMod( "fd_upgrade_crit" )
-}
+sniper.AddMod( "pas_northstar_optics" )
+ if(GetCurrentPlaylistVarInt("aegis_upgrades", 0) == 1)
+ {
+ sniper.AddMod( "fd_upgrade_charge" )
+ sniper.AddMod( "fd_upgrade_crit" )
+ }
 }
  }
 }
